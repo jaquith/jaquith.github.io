@@ -1,7 +1,7 @@
 {
   "id": "env_switcher_local",
   "title": "Environment Switcher ALT",
-  "description": "",
+  "description": "Alternative hosting for the Environment Switcher, Aug 2017",
   "icon_url" : "https://tealium-tools.s3.amazonaws.com/tools/logo.png",
   "scripts": {
     "env_switcher_beta": {
