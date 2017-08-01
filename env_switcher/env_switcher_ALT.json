@@ -5,10 +5,10 @@
   "icon_url" : "https://tealium-tools.s3.amazonaws.com/tools/logo.png",
   "scripts": {
     "env_switcher_beta": {
-      "title": "Environment Switcher LOCAL",
+      "title": "Environment Switcher ALT",
       "auto_inject": true,
-      "js": "https://jaquith.github.io/env_switcher_ALT/page_code.js",
-      "template": "https://jaquith.github.io/env_switcher_ALT/ui.html",
+      "js": "https://jaquith.github.io/env_switcher/page_code.js",
+      "template": "https://jaquith.github.io/env_switcher/ui.html",
       "remote_template": true,
       "remote_js": true
     }
