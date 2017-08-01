@@ -1,0 +1,16 @@
+{
+  "id": "env_switcher_local",
+  "title": "Environment Switcher ALT",
+  "description": "",
+  "icon_url" : "https://tealium-tools.s3.amazonaws.com/tools/logo.png",
+  "scripts": {
+    "env_switcher_beta": {
+      "title": "Environment Switcher LOCAL",
+      "auto_inject": true,
+      "js": "https://jaquith.github.io/env_switcher_ALT/page_code.js",
+      "template": "https://jaquith.github.io/env_switcher_ALT/ui.html",
+      "remote_template": true,
+      "remote_js": true
+    }
+  }
+}
