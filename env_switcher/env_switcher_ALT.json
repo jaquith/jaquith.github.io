@@ -1,11 +1,11 @@
 {
-  "id": "env_switcher_local",
-  "title": "Environment Switcher ALT",
+  "id": "env_switcher_alt_hosting",
+  "title": "Environment Switcher ALT HOSTING",
   "description": "Alternative hosting for the Environment Switcher, Aug 2017",
   "icon_url" : "https://tealium-tools.s3.amazonaws.com/tools/logo.png",
   "scripts": {
     "env_switcher_beta": {
-      "title": "Environment Switcher ALT",
+      "title": "Environment Switcher ALT HOSTING",
       "auto_inject": true,
       "js": "https://jaquith.github.io/env_switcher/page_code.js",
       "template": "https://jaquith.github.io/env_switcher/ui.html",
