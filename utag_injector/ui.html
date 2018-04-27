@@ -1,0 +1,839 @@
+<script type="text/x-handlebars">
+  <style>
+    .utui-table-row {
+    border-top: 1px solid #bad6f4;
+    min-height: 24px;
+    }
+    .clickable {
+    cursor: pointer;
+    }
+    .utui-table-header {
+    padding-bottom: 4px;
+    text-transform: uppercase;
+    }
+    .row-fluid {
+    width: 100%;
+    height: 34px;
+    }
+    .row-fluid [class*="span"]:first-child {
+    margin-left: 0;
+    }
+    .utui-table-header-data {
+    display: block;
+    width: 100%;
+    height: auto;
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    }
+    .utui-table-header .span1-2 {
+    width: 11%;
+    position: relative;
+    }
+    .row-fluid .span1-2 {
+    width: 11%;
+    }
+    .row-fluid [class*="span"] {
+    display: block;
+    float: left;
+    /*width: 100%;*/
+    min-height: 30px;
+    margin-left: 2.127659574468085%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+    .aligncenter {
+    text-align: center;
+    }
+    .span4 {
+    width: 33.5%;
+    display: inline-block;
+    vertical-align: top;
+    }
+    .span4 {
+    width: 100px;
+    }
+    .real_env {
+    border: 2px solid orange!important;
+    }
+    .env_button:hover, .env_button:focus, .env_button  {
+    color: #fff;
+    background-color: #398dd4;
+    border-color: #398dd4;
+    }
+    .env_button {
+    color: #fff;
+    background-color: #678943;
+    border-color: #5a783b;
+    min-width: 51px;
+    }
+    .cur_env {
+    border: 1px solid #398dd4;
+    background: #398dd4;
+    outline-offset: 0px;
+    }
+    .tc-console-row {
+    margin: 4px 0;
+    /*color: #fff;*/
+    }
+    .tc-console-row>.tc-label {
+    font-size: 12px;
+    font-weight: normal;
+    /*color: #ccc;*/
+    float: left;
+    min-width: 76px;
+    padding-right: 12px;
+    text-transform: uppercase;
+    }
+    .tc-label {
+    font-size: 14px;
+    font-weight: normal;
+    float: left;
+    min-width: 55px;
+    padding-right: 4px;
+    /*padding-top: 6px;*/
+    }
+    .ui-buttonset {
+    margin-right: 7px;
+    }
+    .ui-widget input{
+    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    font-size: 11px;
+    }
+    .ui-helper-hidden-accessible {
+    position: absolute;
+    left: -999999px;
+    }
+    label.ui-button.ui-state-default {
+    }
+    .ui-buttonset .ui-button {
+    margin-left: 0;
+    margin-right: -4px;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid #AAA;
+    /* background: #333 url('images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x; */
+    /* background: #f2f2f2; */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f2f2f2 0%, #ededed 50%, #e5e5e5 51%, #f2f2f2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f2f2), color-stop(50%,#ededed), color-stop(51%,#e5e5e5), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -o-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -ms-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: linear-gradient(to bottom, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    font-weight: bold;
+    color: #1d5987;
+    }
+    .ui-widget .ui-widget {
+    font-size: 11px;
+    }
+    .ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-right: .1em;
+    text-decoration: none !important;
+    cursor: pointer;
+    text-align: center;
+    zoom: 1;
+    overflow: visible;
+    }
+    .ui-corner-left {
+    -moz-border-radius-topleft: 4px;
+    -webkit-border-top-left-radius: 4px;
+    border-top-left-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid #AAA;
+    /* background: #333 url('images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x; */
+    /* background: #f2f2f2; */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f2f2f2 0%, #ededed 50%, #e5e5e5 51%, #f2f2f2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f2f2), color-stop(50%,#ededed), color-stop(51%,#e5e5e5), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -o-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -ms-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: linear-gradient(to bottom, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    font-weight: bold;
+    color: #1d5987;
+    }
+    .ui-widget {
+    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    font-size: 1.1em;
+    }
+    .ui-button {
+    margin-left: -1px;
+    }
+    .ui-button-text-only .ui-button-text {
+    padding: .4em 1em;
+    }
+    .ui-button .ui-button-text {
+    display: block;
+    line-height: 1.4;
+    }
+    .ui-button-text {
+    font-size: 10px;
+    text-shadow: 1px 1px #FFF;
+    }
+    .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    font-size: 11px;
+    }
+    .ui-helper-hidden-accessible {
+    position: absolute;
+    left: -999999px;
+    }
+    label.ui-button.ui-state-active {
+    color: #FFF;
+    background: none;
+    background: #336298;
+    background: -moz-linear-gradient(top, #336298 0%, #254d80 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#336298), color-stop(100%,#254d80));
+    background: -webkit-linear-gradient(top, #336298 0%,#254d80 100%);
+    background: -o-linear-gradient(top, #336298 0%,#254d80 100%);
+    background: -ms-linear-gradient(top, #336298 0%,#254d80 100%);
+    background: linear-gradient(to bottom, #336298 0%,#254d80 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#336298', endColorstr='#254d80',GradientType=0 );
+    }
+    label.ui-button.ui-state-default {
+    }
+    .ui-buttonset .ui-button {
+    margin-left: 0;
+    margin-right: -4px;
+    }
+    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #336298;
+    /* background: #f5f8f9 url('images/ui-bg_inset-hard_100_f5f8f9_1x100.png') 50% 50% repeat-x; */
+    background: #FFF;
+    font-weight: bold;
+    color: #333;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid #AAA;
+    /* background: #333 url('images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x; */
+    /* background: #f2f2f2; */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f2f2f2 0%, #ededed 50%, #e5e5e5 51%, #f2f2f2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f2f2), color-stop(50%,#ededed), color-stop(51%,#e5e5e5), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -o-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -ms-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: linear-gradient(to bottom, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    font-weight: bold;
+    color: #1d5987;
+    }
+    .ui-widget .ui-widget {
+    font-size: 11px;
+    }
+    .ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-right: .1em;
+    text-decoration: none !important;
+    cursor: pointer;
+    text-align: center;
+    zoom: 1;
+    overflow: visible;
+    }
+    .ui-corner-right {
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    }
+    .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #336298;
+    /* background: #f5f8f9 url('images/ui-bg_inset-hard_100_f5f8f9_1x100.png') 50% 50% repeat-x; */
+    background: #FFF;
+    font-weight: bold;
+    color: #333;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    border: 1px solid #AAA;
+    /* background: #333 url('images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x; */
+    /* background: #f2f2f2; */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f2f2f2 0%, #ededed 50%, #e5e5e5 51%, #f2f2f2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f2f2), color-stop(50%,#ededed), color-stop(51%,#e5e5e5), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -o-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: -ms-linear-gradient(top, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    background: linear-gradient(to bottom, #f2f2f2 0%,#ededed 50%,#e5e5e5 51%,#f2f2f2 100%);
+    font-weight: bold;
+    color: #1d5987;
+    }
+    .ui-widget {
+    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    font-size: 1.1em;
+    }
+    .ui-button {
+    margin-left: -1px;
+    }
+    label.ui-button.ui-state-active .ui-button-text {
+    text-shadow: -1px -1px #333;
+    }
+    .ui-button-text-only .ui-button-text {
+    padding: .4em 1em;
+    }
+    .ui-button .ui-button-text {
+    display: block;
+    line-height: 1.4;
+    }
+    .ui-button-text {
+    font-size: 10px;
+    text-shadow: 1px 1px #FFF;
+    }
+    .active_data_row {
+    border-top: 1px solid #bad6f4;vertical-align: middle;
+    }
+  </style>
+
+  {{#if noutag}}
+  <div class="modal-content">
+    <div class="modal-header  bg-danger">
+      <h4 class="modal-title"><i class="fa fa-warning"></i> No utag.js on page</h4>
+    </div>
+    <div class="modal-body container modal-body-tweaks">Environment Switcher is unavailable because utag.js does not exist on this page</div>
+  </div>
+  {{/if}}
+
+
+  {{#if loaded}}
+  <div id="details_container">
+    <div id="overview_console">
+      <div class="tc-console-row">
+        <div class="tc-label">Account:</div>
+        <div class="tc-label-value">{{#if details.account}}{{details.account}}{{else}}&nbsp;{{/if}}</div>
+      </div>
+      <div class="tc-console-row">
+        <div class="tc-label">Profile</div>
+        <div class="tc-label-value">{{#if details.profile}}{{details.profile}}{{else}}&nbsp;{{/if}}</div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  <br>
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li {{#if normal}}class="active"{{/if}} {{#if noutag}}class="disabled"{{/if}}>
+    <a href="#std-data" role="tab" data-toggle="tab">Standard</a>
+    </li>
+    <li {{#if noutag}}class="disabled"{{/if}}>
+    <a href="#avd-data" role="tab" data-toggle="tab" >Advanced</a>
+    </li>
+    <li {{#if redirect}}class="active"{{/if}} {{#if noutag}}class="active"{{/if}}>
+    <a href="#active-data" role="tab" data-toggle="tab">Active Redirects</a>
+    </li>
+    <li>
+      <a href="#recent-data" role="tab" data-toggle="tab">Recent Redirects</a>
+    </li>
+  </ul>
+  <!-- Tab panes -->
+
+  <div id="tealiumEV">
+
+    <div class="tab-content">
+      <div class="tab-pane {{#if normal}}active{{/if}}" id="std-data">
+        <div id="std_panel" class="tc-panel-content tabpanel" style="display: block;margin-left: 10px;">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="std_opt_tabs" class="col-xs-4 control-label">Only current tab</label>
+              <div class="col-xs-8">
+                <input type="checkbox" class="form-control custom-script-input" id="std_opt_tabs" style="-webkit-box-shadow:none;height: 18px;" >
+              </div>
+
+              <label for="std_opt_domain" class="col-xs-4 control-label">Just this domain</label>
+              <div class="col-xs-8">
+                <input type="checkbox" class="form-control custom-script-input" id="std_opt_domain" style="-webkit-box-shadow:none;height: 18px;" >
+              </div>
+            </div>
+          </form>
+          <div style="margin-top:10px;">
+            <button id="env_dev" class="btn env_button {{#if cur_dev}}cur_env{{/if}}" >Dev</button>
+            <span style="display: inline-block; width: 10px;"></span>
+            <button id="env_qa" class="btn env_button {{#if cur_qa}}cur_env{{/if}}">QA</button>
+            <span style="display: inline-block; width: 10px;"></span>
+            <button id="env_prod" class="btn env_button {{#if cur_prod}}cur_env{{/if}}" >Prod</button>
+          </div>
+
+
+
+          <style type="text/css">
+            .fa {
+              display: inline-block;
+              font: normal normal normal 14px/1 FontAwesome;
+              font-size: inherit;
+              text-rendering: auto;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              transform: translate(0, 0)
+            }
+            .fa-caret-down:before {
+              content: "\f0d7"
+            }
+            .fa-caret-right:before {
+              content: "\f0da"
+            }
+            .fa-check:before {
+              content: "\f00c";
+            }
+            .fa-remove:before,
+            .fa-close:before,
+            .fa-times:before {
+              content: "\f00d";
+            }
+          </style>
+          <div id="std_opt" class="dialogSectionHeader clickable" data-state="closed" style="margin-top: 10px;cursor: pointer;">
+            <i class="fa fa-caret-right"></i>
+            Advanced Settings
+          </div>
+
+          <div id="std_opt_div" style="float: left; width: 75%; display: none;">
+            <label for="std_utag_js" class="col-xs-4 control-label">utag.js</label>
+            <div class="col-xs-8">
+              <input type="checkbox" class="form-control custom-script-input" id="std_utag_js" style="-webkit-box-shadow:none;height: 18px;">
+            </div>
+            <label for="std_utag_sync_js" class="col-xs-4 control-label">utag.sync.js</label>
+            <div class="col-xs-8">
+              <input type="checkbox" class="form-control custom-script-input" id="std_utag_sync_js" style="-webkit-box-shadow:none;height: 18px;">
+            </div>
+          </div>
+          <div style="margin-top:10px;float: right;   margin-right: 5px;   margin-bottom: 5px;">
+            <button id="std_start" class="btn btn-success" >Start / Restart</button>
+            <button id="std_stop" class="btn btn-success"  style="display: none">Stop</button>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="avd-data">
+        <div id="adv_panel" class="tc-panel-content tabpanel" style="display: block; /*height: 384px*/;">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="adv_opt_tabs" class="col-xs-4 control-label">Only current tab</label>
+              <div class="col-xs-8">
+                <input type="checkbox" class="form-control custom-script-input" id="adv_opt_tabs" style="-webkit-box-shadow:none;height: 18px;" checked>
+              </div>
+
+              <label for="adv_opt_domain" class="col-xs-4 control-label">Just this domain</label>
+              <div class="col-xs-8">
+                <input type="checkbox" class="form-control custom-script-input" id="adv_opt_domain" style="-webkit-box-shadow:none;height: 18px;" checked>
+              </div>
+              <label for="adv_account" class="col-xs-4 control-label">Account</label>
+              <div class="col-xs-8">
+                <input type="text" class="form-control custom-script-input" id="adv_account" value="{{details.account}}">
+              </div>
+              <label for="adv_profile" class="col-xs-4 control-label">Profile</label>
+              <div class="col-xs-8">
+                <input type="text" class="form-control custom-script-input" id="adv_profile" value="{{details.profile}}">
+              </div>
+              <label for="adv_env" class="col-xs-4 control-label">Environment</label>
+              <div class="col-xs-8">
+                <input type="text" class="form-control custom-script-input" id="adv_env" value="{{details.env}}">
+              </div>
+            </div>
+          </form>
+          <div id="adv_opt" class="dialogSectionHeader clickable" data-state="closed" style="margin-top: 10px;cursor: pointer;">
+            <i class="fa fa-caret-right"></i>
+            Advanced Settings
+          </div>
+
+          <div id="adv_opt_div" style="float: left; width: 75%; display: none;">
+            <label for="adv_utag_js" class="col-xs-4 control-label">utag.js</label>
+            <div class="col-xs-8">
+              <input type="checkbox" class="form-control custom-script-input" id="adv_utag_js" style="-webkit-box-shadow:none;height: 18px;">
+            </div>
+            <label for="adv_utag_sync_js" class="col-xs-4 control-label">utag.sync.js</label>
+            <div class="col-xs-8">
+              <input type="checkbox" class="form-control custom-script-input" id="adv_utag_sync_js" style="-webkit-box-shadow:none;height: 18px;">
+            </div>
+
+          </div>
+          <div style="margin-top:10px;float: right;   margin-right: 5px;   margin-bottom: 5px;">
+            <button id="adv_start" class="btn btn-success" >Start / Refresh</button>
+            <button id="adv_stop" class="btn btn-success" style="display: none">Stop</button>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane {{#if redirect}}active{{/if}} {{#if noutag}}active{{/if}}" id="active-data">
+        <table style="width: 100%;">
+          <tbody style="/* width: 151px; */" id="table_active_data">
+          <tr>
+            <th>Real Env</th>
+            <th>New Env</th>
+            <th>All Tabs</th>
+            <th>All Domains</th>
+            <th>Action</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="recent-data">
+        Last 10 redirects
+        <table style="width: 100%;">
+          <tbody style="/* width: 151px; */" id="table_recent_data">
+          <tr>
+            <th>Real Env</th>
+            <th>New Env</th>
+            <th>All Tabs</th>
+            <th>All Domains</th>
+            <th>Action</th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <p style="position: fixed;bottom: 4px;">Comments / bugs / feature requests? Send them to
+    <a href="mailto:adrian@tealium.com">adrian@tealium.com</a>
+  </p>
+  <iframe id="tracker" src="" width="1" height="1" style="display:none"></iframe>
+  <script type="text/javascript">
+    (function(){
+      function generateAPE(details) {
+        return details.account + "/" + details.profile + "/" + details.env;
+      }
+      var tool_name = "env_switcher";
+      var details = {account : "{{details.account}}", profile : "{{details.profile}}", env : "{{details.env}}"};
+      var redirectID = generateAPE(details); //TODO built from tabID + details
+      var active = false;
+      var recent_list = [];
+      var isEquals = (function(){
+        var _filter = function(el) {
+          return !/^(cb|tab_ids)$/.test(el)
+        };
+        var _typeOf = function (e) {
+          return ({}).toString.call(e).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+        };
+        var _arrayEquals = function (array1, array2) {
+          // if the other array is a falsy value, return
+          if (!array1)
+            return false;
+          if (!array2)
+            return false;
+          if (array1 === array2) // They are the same thing
+            return true;
+          if (!("array" == _typeOf(array1) && "array" == _typeOf(array2))) {
+            return false;
+          }
+          // compare lengths - can save a lot of time
+          if (array1.length != array2.length)
+            return false;
+          for (var i = 0, l = array1.length; i < l; i++) {
+            if (array1[i] != array2[i]) {
+              // Warning - two different object instances will never be equal: {x:20} != {x:20}
+              return false;
+            }
+          }
+          return true;
+        };
+        var _objectEquals = function (obj1, obj2) {
+          if (!obj1)
+            return false;
+          if (!obj2)
+            return false;
+          if (obj1 === obj2) // They are the same thing
+            return true;
+          var k1 = Object.keys(obj1).filter(_filter), k2 = Object.keys(obj2).filter(_filter);
+          if (k1.length != k2.length)
+            return false;
+          if (!_isEqual(k1, k2))
+            return false;
+          for (var idx = 0; idx < k1.length; idx++) {
+            if (!_isEqual(obj1[k1[idx]], obj2[k1[idx]])) {
+              return false;
+            }
+          }
+          return true;
+        };
+        var _isEqual = function (objA, objB) {
+          var t = _typeOf(objA);
+          if ("object" === t) {
+            return _objectEquals(objA, objB);
+          } else if ("array" === t) {
+            return _arrayEquals(objA, objB)
+          } else {
+            return objA === objB;
+          }
+        };
+        return function(a, b) {
+          return _isEqual(a, b);
+        }
+      }());
+      function sendMsg(title, body) {
+        chrome.runtime.sendMessage({"tealium_tool":tool_name,"scriptId":"env_switcher","message":true,"title":title,"body":body});
+      }
+      function sendErr(title, body) {
+        chrome.runtime.sendMessage({"tealium_tool":tool_name,"scriptId":"env_switcher","error":true,"title":title,"body":body});
+      }
+      function sendCmd(cmd, arg) {
+        if(window.env_debug)console.log('envSwitcher.'+cmd+'('+(arg || "")+')');
+        return window.ext_bg.envSwitcher[cmd](arg);
+      }
+      function saveConfig(data) {
+        jQuery('input').each(function(){
+          localStorage.setItem(this.id, this.checked);
+        });
+        if (data.cb){delete data.cb;}
+        if (data.tab_ids){delete data.tab_ids;}
+        var found = false;
+        for (var i =0; i < recent_list.length; i++) {
+          if (isEquals(recent_list[i], data)) {
+            recent_list.unshift(recent_list.splice(i,1)[0]);
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          recent_list.unshift(data);
+        }
+        recent_list = recent_list.splice(0,10);
+        localStorage.setItem("recent", JSON.stringify(recent_list));
+      }
+      function loadConfig() {
+        jQuery('input').each(function(){
+          var opt = localStorage.getItem(this.id) || "true";
+          this.checked = (opt === "true");
+        });
+        try{
+          recent_list = JSON.parse(localStorage.getItem("recent"));
+        } catch(e){}
+        recent_list = recent_list || [];
+        callDraws();
+      }
+      var lib_code_ver = parseInt("201508101652");
+      window.ext_bg = chrome.extension.getBackgroundPage();
+      //' }');
+      ext_bg.envSwitcherVersion = ext_bg.envSwitcherVersion || 0;
+      if ((!ext_bg.envSwitcher || (parseInt(ext_bg.envSwitcherVersion) < lib_code_ver))) {
+        ext_bg.envSwitcherVersion = lib_code_ver;
+        window.ext_bg.eval('window.envSwitcher = function (data) {var _data = data || {}, tabs = {};var _urlbuilder = function (domain, data, i) {return ["*://" + domain + "/utag/" + data.current.account + "/" + data.current.profile + "/" + data.current.env + "/" + data.files[i] + "*", "*://" + domain + "/tmu/" + data.current.account + "/" + data.current.profile + "/" + data.current.env + "/" + data.files[i] + "*"];};var setupRedirect = function (data) {var cur = data.current, i;var state = _data[cur.account + "/" + cur.profile + "/" + cur.env] = {};state.cb = function (details) { var d = state.data.redirect;var a = details.url.replace(/(.*\\/utag|tmu)\\/.*?\\/.*?\\/.*?\\/(.*?.js)/, "$1/" + d.account + "/" + d.profile + "/" + d.env + "/$2");if (state.data.opt.domain) {var reg = new RegExp(".*?:\/\/" + state.data.opt.domain + "\/.*");if (!reg.test(tabs[details.tabId].url)) {return {};}} chrome.tabs.executeScript(details.tabId, {code: "(function () {if (window._tt_env_switch_counter) {return;} var _func = function () { var a = document.createElement(\'SCRIPT\'); a.innerHTML=\'window._tt_env_switch=\\"\" + details.url + \"\\";\'; window._tt_env_switch_counter = (window._tt_env_switch_counter || 0)+1; document.body.appendChild(a); a = document.createElement(\'STYLE\');a.innerHTML = \'#tt_env_redirect {position: fixed;bottom: 0;left: 0;z-index: 2147483646;background: #3294FF;color: #fff;box-shadow: 0 0 8px #000;padding: 4px;font: 400 14px Arial,sans-serif;width: 100%;text-align: center;border-bottom: 1px solid #BBDCFF;}\';a.type=\'text/css\';document.body.appendChild(a);a = document.createElement(\'DIV\');a.id = \'tt_env_redirect\';a.innerHTML = \'Enviroment Switcher is running\';document.body.appendChild(a); }; var _check = function () { if (!document.body) { setTimeout(_check, 100); } else { _func(); } }; _check();}());",runAt: "document_start"}, null);if (d.env !== "prod") {a = a + "?_cb=" + state.data.cb;}if(state.data.tab_ids.indexOf(details.tabId) === -1) {state.data.tab_ids.push(details.tabId);}return {redirectUrl: a};};state.data = data;var filters = {urls: []};if (data.opt.tab) {filters.tabId = data.opt.tab;}for (i = 0; i < data.files.length; i++) {filters.urls = filters.urls.concat(_urlbuilder("tags.tiqcdn.com", data, i));filters.urls = filters.urls.concat(_urlbuilder("tags.tiqcdn.cn", data, i));filters.urls = filters.urls.concat(_urlbuilder("tags-eu.tiqcdn.com", data, i));filters.urls = filters.urls.concat(_urlbuilder("tealium.hs.llnwd.net/o43", data, i));}chrome.webRequest.onBeforeRequest.addListener(state.cb, filters, ["blocking"]);};chrome.tabs.query({}, function (results) {results.forEach(function (tab) {tabs[tab.id] = tab;});});var onUpdatedListener = function(tabId, changeInfo, tab) {tabs[tabId] = tab;};var onRemovedListener = function(tabId) {delete tabs[tabId];};chrome.tabs.onUpdated.addListener(onUpdatedListener);chrome.tabs.onRemoved.addListener(onRemovedListener);var _public = {start: function (data) {setupRedirect(data);}, stop: function (tabid) {chrome.webRequest.onBeforeRequest.removeListener(_data[tabid].cb);delete _data[tabid];}, currentTabIsActive: function (tabid) {return !!_data[tabid];}, getRealEnv: function (tabid) {if (!_data[tabid] || !_data[tabid].data.current) {return "";}return _data[tabid].data.current.env;}, getFiles: function (tabid) {return (_data[tabid] && _data[tabid].data.files) ? _data[tabid].data.files : "";}, getActiveData: function () {return _data;}, getTabs: function() {return tabs;}};return _public;}(window.envSwitcher && window.envSwitcher.getActiveData ? window.envSwitcher.getActiveData() : {});');
+      }
+      chrome.tabs.query({currentWindow: true, active: true}, function (tabArray) {
+        window.tabid = tabArray[0].id;
+        if(window.env_debug)console.log('isActive',sendCmd("currentTabIsActive", redirectID));
+        if(window.env_debug)console.log('realEnv',sendCmd("getRealEnv",redirectID));
+        if(window.env_debug)console.log('files', sendCmd("getFiles",redirectID));
+        jQuery('#env_'+details.env).addClass('real_env');
+        loadConfig();
+      });
+      jQuery('#adv_stop, #std_stop').click(function() {
+        sendCmd("stop",tabid);
+        sendMsg("Switching Stopped","Please refresh the page to reset the environment");
+      });
+      function createDataObj(type, account, profile, env) {
+        var data ={
+          current : {
+            "account" : details.account,
+            profile : details.profile,
+            env : details.env
+          },
+          "redirect" : {
+            "account" : account,
+            profile : profile,
+            env : env
+          },
+          "files" : [],
+          "opt" : {}
+        };
+        if (jQuery("#"+type+"_utag_js")[0].checked) {data.files.push("utag.js");}
+        if (jQuery("#"+type+"_utag_sync_js")[0].checked) {data.files.push("utag.sync.js");}
+        data.opt.domain = (jQuery("#"+type+"_opt_domain")[0].checked ? "{{domain}}" : false);
+        data.opt.tab = (jQuery("#"+type+"_opt_tabs")[0].checked ? tabid  : false);
+        checkAndStart(data);
+      }
+      function checkAndStart(data) {
+        //TODO remove active var, check based on tabID
+        if (generateAPE(data.current) === redirectID && (active || sendCmd("currentTabIsActive", redirectID))) {
+          sendErr("Active Redirect",'There is already a redirect present for "'+redirectID+'"');
+          return;
+        }
+        if ((data.current.account === data.redirect.account &&
+          data.current.profile === data.redirect.profile &&
+          data.current.env === data.redirect.env) &&
+          (data.files.length !== 0)
+        ) {
+          sendErr("Error Switching","Please check your settings to make sure that you have changed the environment & selected a file");
+        } else {
+          start(data);
+        }
+      }
+      function start(data) {
+        saveConfig(data);
+        data.cb = Math.random();
+        if(redirectID === generateAPE(data.current)) {
+          data.tab_ids = [window.tabid];
+        }
+        sendCmd("start",data, true);
+        if(redirectID === generateAPE(data.current)){
+          chrome.tabs.reload(window.tabId, {bypassCache: true}, function () {window.close();});
+        }
+      }
+      jQuery('#adv_start').click(function() {
+        createDataObj('adv', jQuery("#adv_account").val() || details.account,jQuery("#adv_profile").val() || details.profile,jQuery("#adv_env").val() || details.env);
+      });
+      jQuery('#std_start').click(function() {
+        createDataObj('std', details.account,details.profile,jQuery('button.cur_env').attr('id').replace('env_',''));
+      });
+      window.handlers = {
+        "$dev" : jQuery("#env_dev"),
+        "$qa" : jQuery("#env_qa"),
+        "$prd" : jQuery("#env_prod"),
+        "$envs" : jQuery("#env_dev, #env_qa, #env_prod")
+      };
+      handlers.$envs.click(function(){
+        handlers.$envs.removeClass('cur_env');
+        jQuery(this).addClass('cur_env');
+      });
+      jQuery("label","#radio_tabs").on("click", function() {
+        jQuery(this).addClass("ui-state-active");
+        jQuery("label","#radio_tabs").not(this).removeClass("ui-state-active");
+      });
+      jQuery("#std_opt").on("click", function(){
+        var $headerDiv = jQuery(this);
+        if ($headerDiv.data("state") === "closed"){
+          $headerDiv.data("state", "open");
+          jQuery("i", $headerDiv).removeClass("fa-caret-right").addClass("fa-caret-down");
+          jQuery("#std_opt_div").show();
+        } else {
+          $headerDiv.data("state", "closed");
+          jQuery("i", $headerDiv).removeClass("fa-caret-down").addClass("fa-caret-right");
+          jQuery("#std_opt_div").hide();
+        }
+      });
+      jQuery("#adv_opt").on("click", function(){
+        var $headerDiv = jQuery(this);
+        if ($headerDiv.data("state") === "closed"){
+          $headerDiv.data("state", "open");
+          jQuery("i", $headerDiv).removeClass("fa-caret-right").addClass("fa-caret-down");
+          jQuery("#adv_opt_div").show();
+        } else {
+          $headerDiv.data("state", "closed");
+          jQuery("i", $headerDiv).removeClass("fa-caret-down").addClass("fa-caret-right");
+          jQuery("#adv_opt_div").hide();
+        }
+      });
+      function stop(details, tabId) {
+        sendCmd("stop", details);
+        var reload = false;
+        callDraws();
+        if (tabId) {
+          tabId = tabId.split(",");
+          for (var t = 0; t < tabId.length; t++) {
+            var int_tab = parseInt(tabId[t]);
+            try {
+              chrome.tabs.executeScript(int_tab, {
+                code: "(function() {try { delete window._tt_env_switch; } catch(e) {window._tt_env_switch=undefined;} var a = document.getElementById('tt_env_redirect');a.parentNode.removeChild(a); }())",
+                runAt: "document_start"
+              }, null);
+            } catch (e) {}
+            chrome.tabs.reload(int_tab, {bypassCache: true}, function () {
+            });
+            if (int_tab === window.tabid) {
+              reload = true;
+            }
+          }
+          if (reload) {
+            window.close();
+          }
+        }
+      }
+      function drawActiveRedirects() {
+        drawRedirects(sendCmd("getActiveData"), "Stop", "table_active_data", function () {
+          var $this = jQuery(this);
+          stop($this.attr("data-details"),$this.attr("data-tab_id"));
+        });
+      }
+      function drawRecentRedirects() {
+        var _activeData = sendCmd("getActiveData");
+        drawRedirects(recent_list, "", "table_recent_data", function () {
+          var $item =  jQuery(this),
+              details = recent_list[parseInt($item.attr("data-details"))];
+          if ($item.attr("data-action") === "Start") {
+            if (details.opt.tab){
+              details.opt.tab = tabid;
+            }
+            checkAndStart(details);
+          } else {
+            stop(generateAPE(details.current), $item.attr("data-tab_id"));
+          }
+        }, function(prop) {
+          debugger;
+          var ape = generateAPE(recent_list[prop].current);
+          var action = "Start", _i = _activeData[ape];
+          if (_i && isEquals(_i.data, recent_list[prop])) {
+            action = "Stop";
+          }
+          return '<button data-details="' + prop + '" data-action="'+action+'" data-tab_id="' + (_i ? _i.data.tab_ids : []).join(",") + '" class="btn btn-success">'+action+'</button>';
+        });
+      }
+      function drawRedirects(data, action, table, func, btn) {
+        var draw = function(item, prop){
+          row = '<tr class="active_data_row">';
+          row += '<td>';
+          row += '<div>' + item.current.account + '<div style="margin-left: 4px;"><i class="fa fa-caret-right" style="padding-right: 2px;"></i>' + item.current.profile + '<div style="margin-left: 4px;"><i class="fa fa-caret-right" style="padding-right: 2px;"></i>' + item.current.env + '</div></div></div>';
+          row += '</td>';
+          row += '<td>';
+          row += '<div style="/* text-align: left; */">' + item.redirect.account + '<div style="margin-left: 4px;"><i class="fa fa-caret-right" style="padding-right: 2px;"></i>' + item.redirect.profile + '<div style="margin-left: 4px;"><i class="fa fa-caret-right" style="padding-right: 2px;"></i>' + item.redirect.env + '</div></div></div>';
+          row += '</td>';
+          row += '<td style="padding-left: 16px;">'+(item.opt.domain ? "N" : "Y")+'</td>';
+          row += '<td style="padding-left: 26px;">'+(item.opt.tab ? "N" : "Y")+'</td>';
+          row += '<td style="/* text-align: center; */">';
+          row += '<div style="margin-top: -5px;/* float: right; */   padding-right: 4px;   /* margin-bottom: 5px; */">';
+          if (btn) {
+            row += btn(prop);
+          } else {
+            row += '<button data-details="' + prop + '" data-tab_id="' + item.tab_ids.join(",") + '" class="btn btn-success">'+action+'</button>';
+          }
+          row += '</div>';
+          row += '</td>';
+          row += '</tr>';
+          jQuery('#'+table).append(row);
+        };
+        var row = "";
+        jQuery('#'+table+' > tr.active_data_row').remove();
+        if ($.isArray(data)) {
+          for (var i = 0 ; i < data.length; i++) {
+            data[i].tab_ids=[];
+            draw(data[i], i);
+          }
+        } else {
+          for (var prop in data) {
+            if (!data.hasOwnProperty(prop)) {
+              continue;
+            }
+            draw(data[prop].data, prop);
+          }
+        }
+        jQuery("button", '#'+table).click(func);
+      }
+      function callDraws() {
+        drawActiveRedirects();
+        drawRecentRedirects();
+      }
+      callDraws();
+      //chrome.tabs.reload(integer tabId, object reloadProperties, function callback);
+      if (sendCmd("currentTabIsActive",redirectID) ) { //window.ext_bg.eval('envSwitcher.currentTabIsActive(\"'+details.account + "/" + details.profile + "/" + details.env +'\")')
+//          sendMsg("Redirect Active", "There is a redirect that is active for this page");
+        active = true;
+      }
+      if(window.env_debug)console.log("redirect", "{{redirect}}");
+    }());
+    (function(){
+      var a, email;
+      try {
+        a = chrome.extension.getBackgroundPage();
+        email = a.bg.userAuth.getEmail();
+      } catch(e){}
+      email = email || "N/A";
+      $('#tracker')[0].src = "https://solutions.tealium.net/hosted/tealiumTools/tracker.html?account=eng-ab&profile=tealiumtools&tool=ES&email="+email;
+    }());
+  </script>
+
+</script>

@@ -1,0 +1,42 @@
+{
+  "id": "utag_injector_beta",
+  "title": "utag Injector (BETA)",
+  "description": "Injects a utag.js file of your choice on the active page (and subsequent ones in the same domain)",
+  "icon_url" : "https://tealium-tools.s3.amazonaws.com/tools/logo.png",
+  "scripts": {
+    "utag_injector_beta": {
+      "title": "utag Injector (BETA)",
+      "auto_inject": true,
+      "js": "https://jaquith.github.io/utag_injector/page_code.js",
+      "template": "https://jaquith.github.io/utag_injector/ui.html",
+      "remote_template": true,
+      "remote_js": true,
+      "input" : {
+        "first_name" : {
+          "type" : "text",
+          "placeholder" : "Your First Name Here",
+          "label" : "First Name"
+        },
+        "account" : {
+          "type" : "text",
+          "placeholder" : "Your First Name Here",
+          "label" : "Account"
+        },
+        "profile" : {
+          "type" : "text",
+          "placeholder" : "Your First Name Here",
+          "label" : "Profile"
+        },
+        "environment" : {
+          "type" : "text",
+          "placeholder" : "Your First Name Here",
+          "label" : "Environment"
+        },
+        "inject_for_domain" : {
+          "type" : "checkbox",
+          "label" : "Check to inject for all pages in this domain."
+        }
+      }
+    }
+  }
+}
