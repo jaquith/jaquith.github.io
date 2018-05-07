@@ -1,0 +1,7 @@
+var yAPI = window.Y && Y.SandBox && Y.SandBox.vendor;
+yAPI = (yAPI === 'undefined') ? null : yAPI;
+var pageURL = window.location.toString();
+if(yAPI){pageURL = document.referrer.toString();}pageURL = document.referrer.toString();var mmcon = document.createElement('script');mmcon.src = 'https://maytrics.marvellousmachine.net/track.php?type=0&cid=271&language=en-US' + '&extref=' + encodeURIComponent(pageURL);var bodyElement = document.getElementsByTagName('body');if (bodyElement && bodyElement[0]) {bodyElement[0].appendChild(mmcon);}
+	var mm3pcon = document.createElement('script');
+	mm3pcon.src ='https://maytrics.marvellousmachine.net/3p.php?type=0&cid=271&language=en-US';
+	 + '&extref=' + encodeURIComponent(pageURL);var body3pElement = document.getElementsByTagName('body');if (body3pElement && body3pElement[0]) {body3pElement[0].appendChild(mm3pcon);}

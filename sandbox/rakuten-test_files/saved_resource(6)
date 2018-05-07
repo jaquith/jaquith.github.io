@@ -1,0 +1,1 @@
+var kp_rule_publisher_ids = []; var kp_rule_response = false; var kp_product_id_valid = true; var kp_uuid = "6b3e7c7e-584e-4fc0-a8a9-dcc8d9e75e06"; 
