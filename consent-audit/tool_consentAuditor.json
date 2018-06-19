@@ -8,7 +8,7 @@
         {
             "title": "Audit Tags",
             "description": "Press <strong>Start Audit</strong> below to begin.",
-            "button_label": "Start Audit",
+            "button_label": "Trigger Consent Audit",
             "js": "https://jaquith.github.io/consent-audit/audit-script.js",
             "remote_js": true
         }

@@ -19,6 +19,7 @@ function tagIsOmitted(uid) {
 }
 
 var output = "";
+var auditObj = {};
 
 function addLineToOutput(string) {
     output += "\n" + string;
@@ -31,6 +32,10 @@ for (var i = 0, cat, catTitle, tags; i < catArr.length; i++) {
     try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catArr[i]].name;}
     catch(e){}
     addLineToOutput("" + catArr[i] + " | " + catTitle + " | Tag Count: " + cat.tagid.length);
+    auditObj[catArr[i]] = {};
+    auditObj[catArr[i]].title = catTitle;
+    auditObj[catArr[i]].tagCount = cat.tagid.length;
+    auditObj[catArr[i]].tags = [];
     if (cat.tagid.length !== 0) {
         tags = cat.tagid;
         for (var j = 0, tag, tagId, tagIdString; j < tags.length; j++) {
@@ -45,11 +50,13 @@ for (var i = 0, cat, catTitle, tags; i < catArr.length; i++) {
             var omittedText = (tagIsOmitted(tag._id)) ? "****OMITTED**** " : "";
             var inactiveText = (tag.status !== "active") ? "****INACTIVE**** " : "";
             addLineToOutput("     ==> " + omittedText + inactiveText + "UID:" + tag._id + " - " + tag.title + " (" + tag.tag_name + ")");
+            auditObj[catArr[i]].tags.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : tagIsOmitted(tag._id), "is_active" : tag.status === "active"});
         }
     }
     addLineToOutput("");
 }
 
-console.log(output);
-tealiumTools.sendMessage(output);
+//console.log(output);
+console.log(auditObj);
+tealiumTools.send(auditObj);
 
