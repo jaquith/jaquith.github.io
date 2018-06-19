@@ -18,20 +18,13 @@ function tagIsOmitted(uid) {
     return pos !== -1; 
 }
 
-var output = "";
 var auditObj = {};
-
-function addLineToOutput(string) {
-    output += "\n" + string;
-}
-
 
 for (var i = 0, cat, catTitle, tags; i < catArr.length; i++) {
     cat = catObj[catArr[i]];
     catTitle = "(title broken)";
     try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catArr[i]].name;}
     catch(e){}
-    addLineToOutput("" + catArr[i] + " | " + catTitle + " | Tag Count: " + cat.tagid.length);
     auditObj[catArr[i]] = {};
     auditObj[catArr[i]].title = catTitle;
     auditObj[catArr[i]].tagCount = cat.tagid.length;
@@ -47,13 +40,11 @@ for (var i = 0, cat, catTitle, tags; i < catArr.length; i++) {
                 tagIdString = "_id"; // yep, this is different...
             }
             tag = getTagById(tagId, tagIdString)
-            var omittedText = (tagIsOmitted(tag._id)) ? "****OMITTED**** " : "";
-            var inactiveText = (tag.status !== "active") ? "****INACTIVE**** " : "";
-            addLineToOutput("     ==> " + omittedText + inactiveText + "UID:" + tag._id + " - " + tag.title + " (" + tag.tag_name + ")");
-            auditObj[catArr[i]].tags.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : tagIsOmitted(tag._id), "is_active" : tag.status === "active"});
+            var isOmitted = tagIsOmitted(tag._id);
+            var isInactive = tag.status !== "active";
+            auditObj[catArr[i]].tags.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : isOmitted, "is_inactive" : isInactive, "should_bold" : isOmitted && !isInactive, "should_grey" : isInactive});
         }
     }
-    addLineToOutput("");
 }
 
 //console.log(output);

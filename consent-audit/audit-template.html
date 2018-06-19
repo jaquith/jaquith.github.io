@@ -1,3 +1,20 @@
 <script type="text/x-handlebars">
-    <h2>Audit results</h2>{{#each this}}<div style='margin-bottom:20px;'><h4>{{@key}} {{#if this.title}} ('{{this.title}}'){{else}} ('<no title added>'){{/if}}</h4> <p>Tags: {{this.tagCount}}</p><ul>{{#each this.tags}}<li {{#unless this.is_active}} style='color:red;' {{/unless}}>{{#if this.is_omitted}} OMITTED {{/if}}{{#unless this.is_active}} INACTIVE {{/unless}}UID:{{this.uid}} {{this.title}} ({{this.name}})</li>{{/each}}</ul></div>{{/each}}
+  <h2>Audit results</h2>
+  {{#each this}}
+  <div style='margin-bottom:20px;'>
+      <h4>
+        {{@key}} ('{{this.title}}')
+      </h4>
+      <p>Tags: {{this.tagCount}}</p>
+      <ul>
+        {{#each this.tags}}
+          <li {{#if this.should_bold}} style='color:red;' {{/if}}{{#if this.should_grey}} style='color:#333;' {{/if}}>
+            {{#if this.is_omitted}} (OMITTED) {{/if}}
+            {{#if this.is_inactive}} (INACTIVE) {{/if}}
+            UID:{{this.uid}} {{this.title}} ({{this.name}})
+          </li>
+        {{/each}}
+      </ul>
+  </div>
+  {{/each}}
 </script>
