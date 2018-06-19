@@ -1,0 +1,17 @@
+{
+    "id": "consent_auditor",
+    "title": "Consent Auditor",
+    "description": "Helps you keep track of the current status of each tag as it relates to the Tealium Consent Manager toolset",
+    "icon_url" : "https://tealium-tools.s3.amazonaws.com/tools/logo.png",
+    "scripts": {
+        "audit_tags":
+        {
+            "title": "Audit Tags",
+            "description": "Press <strong>Start Audit</strong> below to begin.",
+            "button_label": "Start Audit",
+            "js": "https://jaquith.github.io/consent-audit/audit-script.js",
+            "remote_js": true
+            }
+        }
+    }
+}
