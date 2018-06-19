@@ -11,7 +11,7 @@
           <li {{#if this.should_bold}} style='color:red;' {{/if}}{{#if this.should_grey}} style='text-decoration:line-through;color:#999;'{{/if}}>
             {{#if this.is_omitted}} (OMITTED) {{/if}}
             {{#if this.is_inactive}} (INACTIVE) {{/if}}
-            UID:{{this.uid}} {{this.title}} ({{this.name}})
+            UID:{{this.uid}} <b>{{this.title}}</b> ({{this.name}})
           </li>
         {{/each}}
       </ul>

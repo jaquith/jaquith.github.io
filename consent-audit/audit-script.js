@@ -10,8 +10,10 @@ function getTagById(idString, idField) {
     }
 }
 
-function tagIsOmitted(uid) {
+// checks the Explicit Consent omission list, the Consent Preferences are checked elsewhere
+function tagIsOmittedExplicitConsent(uid) {
     var delim = ",";
+    // check the explicit consent list first
     var omittedTags = delim + utui.data.privacy_management.explicit.omittedTags + delim;
     var tagString = delim + uid + delim;
     var pos = omittedTags.indexOf(tagString);
@@ -40,7 +42,8 @@ for (var i = 0, cat, catTitle, tags; i < catArr.length; i++) {
                 tagIdString = "_id"; // yep, this is different...
             }
             tag = getTagById(tagId, tagIdString)
-            var isOmitted = tagIsOmitted(tag._id);
+            // isOn is where the Consent Preferences omission status is stored
+            var isOmitted = tags[j].isOn == false || tagIsOmittedExplicitConsent(tag._id);
             var isInactive = tag.status !== "active";
             auditObj[catArr[i]].tags.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : isOmitted, "is_inactive" : isInactive, "should_bold" : isOmitted && !isInactive, "should_grey" : isInactive});
         }
@@ -48,6 +51,6 @@ for (var i = 0, cat, catTitle, tags; i < catArr.length; i++) {
 }
 
 //console.log(output);
-console.log(auditObj);
+//console.log(auditObj);
 tealiumTools.send(auditObj);
 
