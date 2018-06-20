@@ -3,7 +3,7 @@
   {{#each this}}
     <div style='margin-bottom:20px;'>
       <h4>
-        {{@key}} ('{{this.title}}')
+        {{@key}}{{#if this.title}} ('{{this.title}}'){{/if}}
       </h4>
       <p>Tags: {{this.tagCount}}</p>
       <ul>

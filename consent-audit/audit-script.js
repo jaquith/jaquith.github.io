@@ -2,7 +2,7 @@
 
     // make sure the utui object is there
     if (typeof utui === "undefined") {
-        tealiumTools.send("Error: please make sure you're logged into TiQ to use this tool.");
+        tealiumTools.send("Error: please make sure you're logged into TiQ (and have the TiQ UI as your active tab) to use this tool.");
         return;
     }
 
@@ -17,14 +17,58 @@
 
     var catObj = utui.data.privacy_management.preferences.categories;
     var catArr = Object.keys(catObj);
+    var uids_accounted_for = [];
 
-    function getTagsById(idString, isUID) {
+    function addCatToObject (catName, tags, auditObj, flagOmitted) {
+        var catTitle = "";
+        // should do something more elegant with the language at some point, currently only works with English
+        try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catName].name;}
+        catch(e){}
+        if (catName == "uncategorized") catTitle = "These tags will always fire!";
+        auditObj[catName] = {};
+        auditObj[catName].title = catTitle;
+        auditObj[catName].tags = [];
+
+        for (var j = 0, tag, tagId, newTagArr; j < tags.length; j++) {
+            var tagId = tags[j].tag_id;
+            var isUID = false;
+            // for tags that have a UID (Tealium Tags), use that one instead
+            if (tags[j].id) {
+                tagId = tags[j].id;
+                isUID = true; 
+            }
+            newTagArr = getTags(tagId, isUID);
+            // isOn is where the Consent Preferences omission status is stored
+            for (var k = 0; k < newTagArr.length; k++) {
+                tag = newTagArr[k];
+                uids_accounted_for.push(tag._id);
+                var isOmitted = tags[j].isOn == false || tagIsOmittedExplicitConsent(tag._id);
+                var isInactive = tag.status !== "active";
+                auditObj[catName].tags.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : isOmitted, "is_inactive" : isInactive, "should_bold" : isOmitted && !isInactive, "should_grey" : isInactive});
+            }
+        }
+
+        auditObj[catName].tagCount = auditObj[catName].tags.length;
+    }
+
+
+    // will return a list of all the tag UIDs in the profile if no arguments are provided
+    function getTags(idString, isUID) {
         var idField = isUID ? "_id" : "tag_id"; // default to the UID (instead of tag_id, the internal one)
         var containerObj = utui.manage.containerMap;
         var containerKeys = Object.keys(containerObj);
         var tags = [];
         for (var i = 0; i < containerKeys.length; i++) {
-            if (containerObj[containerKeys[i]][idField] == idString) tags.push(containerObj[containerKeys[i]]);
+            // push selected tags if an idString is provided
+            if (typeof idString !== "undefined") {
+                if (containerObj[containerKeys[i]][idField] == idString) {
+                    tags.push(containerObj[containerKeys[i]]);
+                }
+            }
+            // if no idString arguement provided, push all the tags into the array
+            else {
+                tags.push(containerObj[containerKeys[i]])
+            }
         }
         return tags;
     }
@@ -40,41 +84,31 @@
     }
 
     var auditObj = {};
+    auditObj.uncategorized = {};
 
-    for (var i = 0, cat, catTitle, tags; i < catArr.length; i++) {
-        cat = catObj[catArr[i]];
-        catTitle = "(title broken)";
-        try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catArr[i]].name;}
-        catch(e){}
-        auditObj[catArr[i]] = {};
-        auditObj[catArr[i]].title = catTitle;
-        auditObj[catArr[i]].tags = [];
-        if (cat.tagid.length !== 0) {
-            tags = cat.tagid;
-            for (var j = 0, tag, tagId, tagIdString; j < tags.length; j++) {
-                var tagId = tags[j].tag_id;
-                var isUID = false;
-                // for tags that have a UID (Tealium Tags), use that one instead
-                if (tags[j].id) {
-                    tagId = tags[j].id;
-                    isUID = true; 
-                }
-                newTagArr = getTagsById(tagId, isUID);
-
-                // isOn is where the Consent Preferences omission status is stored
-                for (var k = 0; k < newTagArr.length; k++) {
-                    tag = newTagArr[k];
-                    var isOmitted = tags[j].isOn == false || tagIsOmittedExplicitConsent(tag._id);
-                    var isInactive = tag.status !== "active";
-                    auditObj[catArr[i]].tags.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : isOmitted, "is_inactive" : isInactive, "should_bold" : isOmitted && !isInactive, "should_grey" : isInactive});
-                }
-            }
-        }
-        auditObj[catArr[i]].tagCount = auditObj[catArr[i]].tags.length;
+    for (var i = 0, tags; i < catArr.length; i++) {
+        addCatToObject(catArr[i], catObj[catArr[i]].tagid, auditObj);
     }
 
-    //console.log(output);
-    //console.log(auditObj);
+    var all_tags = getTags();
+    var missing_tags = all_tags.filter(tag => uids_accounted_for.indexOf(tag._id) === -1);
+
+    // flag these as omitted regardless of the status?
+    addCatToObject("uncategorized", missing_tags, auditObj, true);
+
+
+   /* for (i = 0, tag; i < missing_tags.length; i++) {
+        tag = missing_tags[i];
+        // utui.data.privacy_management.preferences.categories.personalization.tagid.push({tag_name: "Tealium Pixel (or Iframe) Container", isOn: true, id: "XXX", tag_id: "20011"})
+        // don't accidentally add the collect tag
+        if (tag.tag_name !== "Tealium Collect") {
+            utui.data.privacy_management.preferences.categories.social.tagid.push({"tag_name": tag.tag_name, "isOn": true, "id": tag.id, "tag_id": tag.tag_id})
+        }
+    } */
+    
+
+    //console.log(uids_accounted_for);
+    //console.log(missing_tags);
     tealiumTools.send(auditObj);
 }())
 
