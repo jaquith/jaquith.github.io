@@ -70,6 +70,16 @@
         return pos !== -1; 
     }
 
+    function getVersionPublishedLocations(version, publishedObj) {
+        var output = {};
+        var keys = Object.keys(publishedObj);
+        for (var i = 0, key; i < keys.length; i++) {
+            key = keys[i];
+            output[key] = publishedObj[key] === version;
+        }
+        return output;
+    }
+
     // make sure the utui object is there
     if (typeof utui === "undefined") {
         tealiumTools.sendError("Please make sure you're logged into TiQ (and have the TiQ UI as your active tab) to use this tool.");
@@ -109,7 +119,7 @@
         addCatToObject(null, missing_tags, auditObj.tags.uncategorized);
     }
     
-
+   /* uncomment to manually push the missing tags into a consent category as a bugfix (in console) */
    /* for (i = 0, tag; i < missing_tags.length; i++) {
         tag = missing_tags[i];
         // utui.data.privacy_management.preferences.categories.personalization.tagid.push({tag_name: "Tealium Pixel (or Iframe) Container", isOn: true, id: "XXX", tag_id: "20011"})
@@ -124,13 +134,23 @@
     auditObj.time = current.toUTCString();
     auditObj.account = utui.login.account;
     auditObj.profile = utui.login.profile;
+    // using strings instead of booleans for easier templating (could easily change)
     auditObj.dirtyProfile = utui.profile.dirty == 1 ? "true" : "false";
     auditObj.isLatestVersion = utui.profile.isLatestVersion ? "true" : "false";
-    auditObj.versionInfo = utui.publish.history;
+    auditObj.isProdVersion = false;
+    var versionConcat = utui.data.settings.revision + "_" + utui.data.settings.minorrevision;
+    var publishedVersions = utui.publish.history;
+    var publishedLocations = getVersionPublishedLocations(versionConcat, publishedVersions);
+    // doesn't support custom environments
+    auditObj.isDevVersion = publishedLocations.dev === true && utui.profile.dirty === 0 ? "true" : "false"
+    auditObj.isQAVersion = publishedLocations.qa === true && utui.profile.dirty === 0 ? "true" : "false"
+    auditObj.isProdVersion = publishedLocations.prod === true && utui.profile.dirty === 0 ? "true" : "false"
+    debugger;
 
     //console.log(uids_accounted_for);
     //console.log(missing_tags);
     tealiumTools.send(auditObj);
+    // copy(auditObj);
 }())
 
 
