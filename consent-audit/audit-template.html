@@ -3,7 +3,12 @@
     <p>{{this.message}}</p>
   {{else}}
     <h2 style='margin-bottom:10px;'>Latest Audit Results</h2>
-    {{#if this.uncategorized}}
+    <p>Account: {{this.account}}</p>
+    <p>Profile: {{this.profile}}</p>
+    <p>Audit Time: {{this.time}}</p>
+    <p>Profile has unsaved edits: {{this.dirtyProfile}}</p>
+    <p>Profile is latest version: {{this.isLatestVersion}}</p>
+    {{#if this.tags.uncategorized}}
       <div style='margin-bottom:30px;'>
         <h3>
           Uncategorized Tags 
@@ -23,8 +28,8 @@
         </ul>
       </div>
     {{/if}}
-    {{#if this.categories}}<h3>Tags by Category</h3>
-      {{#each this.categories}}
+    {{#if this.tags.categories}}<h3>Tags by Category</h3>
+      {{#each this.tags.categories}}
         <div style='margin-bottom:30px;'>
           <h4>
             {{@key}}{{#if this.title}} ('{{this.title}}'){{/if}}

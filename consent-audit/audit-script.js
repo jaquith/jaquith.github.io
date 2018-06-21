@@ -1,29 +1,11 @@
 (function runConsentAudit() {
 
+    // clear out the previous Audit Report or error
     tealiumTools.send({"message":"Running..."});
-
-    // make sure the utui object is there
-    if (typeof utui === "undefined") {
-        tealiumTools.send({"message":"Error: please make sure you're logged into TiQ (and have the TiQ UI as your active tab) to use this tool."});
-        return;
-    }
-
-    var isExplicitActive = (utui.data.privacy_management && utui.data.privacy_management.explicit && utui.data.privacy_management.explicit.isEnabled);
-    var isPreferencesActive = (utui.data.privacy_management && utui.data.privacy_management.preferences && utui.data.privacy_management.preferences.isEnabled);
-
-    if (!isExplicitActive || !isPreferencesActive) {
-        tealiumTools.send({"message":"Error: This tool is only tested for profiles with both Consent Manager components active - get in touch with caleb.jaquith@tealium.com to get your use case added."});
-        return;
-    }
-
-
-    var catObj = utui.data.privacy_management.preferences.categories;
-    var catArr = Object.keys(catObj);
-    var uids_accounted_for = [];
 
     function addCatToObject (subCatName, tags, catAuditObj) {
         var catTitle = "";
-        // should do something more elegant with the language at some point, currently only works with English
+        // should certainly do something more elegant with the language handling here - currently only English
         try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catName].name;}
         catch(e){}
         if (typeof subCatName === "string" && subCatName != "" ) {
@@ -37,7 +19,6 @@
             targetObj = catAuditObj;
             tagArr = targetObj.tags;
         }
-        
 
         for (var j = 0, tag, tagId, newTagArr; j < tags.length; j++) {
             var tagId = tags[j].tag_id;
@@ -60,7 +41,6 @@
 
         targetObj.tagCount = tagArr.length;
     }
-
 
     // will return a list of all the tag UIDs in the profile if no arguments are provided
     function getTags(idString, isUID) {
@@ -93,6 +73,24 @@
         return pos !== -1; 
     }
 
+    // make sure the utui object is there
+    if (typeof utui === "undefined") {
+        tealiumTools.sendError("Please make sure you're logged into TiQ (and have the TiQ UI as your active tab) to use this tool.");
+        return;
+    }
+
+    var isExplicitActive = (utui.data.privacy_management && utui.data.privacy_management.explicit && utui.data.privacy_management.explicit.isEnabled);
+    var isPreferencesActive = (utui.data.privacy_management && utui.data.privacy_management.preferences && utui.data.privacy_management.preferences.isEnabled);
+
+    if (!isExplicitActive || !isPreferencesActive) {
+        tealiumTools.sendError("This tool is only tested for profiles with both Consent Manager components active - if needed, please get in touch with caleb.jaquith@tealium.com to get an appropriate audit for your use case added.");
+        return;
+    }
+
+    var catObj = utui.data.privacy_management.preferences.categories;
+    var catArr = Object.keys(catObj);
+    var uids_accounted_for = [];
+
     var auditObj = {};
     auditObj.uncategorized = {};
     auditObj.categories = {};
@@ -117,6 +115,12 @@
         }
     } */
     
+    // add the timestamp and account info, could expand this as well
+    auditObj.time = new Date();
+    auditObj.account = utui.login.account;
+    auditObj.profile = utui.login.profile;
+    auditObj.dirtyProfile = utui.profile.dirty
+    auditObj.isLatestVersion = utui.profile.isLatestVersion;
 
     //console.log(uids_accounted_for);
     //console.log(missing_tags);
