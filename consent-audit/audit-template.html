@@ -1,14 +1,14 @@
 <script type="text/x-handlebars">
-  <h2>Latest Audit Results</h2>
+  <h2 style='margin-bottom:10px;'>Latest Audit Results</h2>
     {{#if this.uncategorized}}
-    <div style='margin-bottom:20px;'>
-      <h4>
+    <div style='margin-bottom:30px;'>
+      <h3>
         Uncategorized Tags 
-      </h4>
+      </h3>
       <p>Tealium's Collect tag is expected to be uncategorized - since it can be used for EventStream and Consent Logging as well as Audience Stream, it's considered essential data collection.</p>
-      <p>If Tealium's Consent Management solutions are in place, all Collect Events will include a 'policy' attribute with a value of 'gdpr' - such Events will only be processed by AudienceStream if the user has opted into the 'cdp' category.</p>
+      <p>If Tealium's Consent Management solutions are in place, all Collect Events will include a 'policy' attribute with a value of 'gdpr' - such Events will only be processed by AudienceStream if the user has opted into the 'cdp' category, as reflected in the 'consent_categories' attribute. This behavior can be confirmed by running a Trace and making changes to the category-based consent for your device.</p>
       <p>If you see any other tags in this section, please raise a ticket with support@tealium.com - that's not expected behavior.</p>
-      <p>Tags: {{this.uncategorized tagCount}}</p>
+      <p>Uncategorized Tags: {{this.uncategorized.tagCount}}</p>
       <ul>
         {{#each this.uncategorized.tags}}
           <li {{#if this.should_bold}} style='color:red;' {{/if}}{{#if this.should_grey}} style='text-decoration:line-through;color:#999;'{{/if}}>
@@ -20,8 +20,9 @@
       </ul>
     </div>
   {{/if}}
+  {{#if this.categories}}<h3>Tags by Category</h3>
   {{#each this.categories}}
-    <div style='margin-bottom:20px;'>
+    <div style='margin-bottom:30px;'>
       <h4>
         {{@key}}{{#if this.title}} ('{{this.title}}'){{/if}}
       </h4>
