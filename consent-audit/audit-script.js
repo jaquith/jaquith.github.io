@@ -1,7 +1,7 @@
 (function runConsentAudit() {
 
     // clear out the previous Audit Report or error
-    tealiumTools.send({"message":"Running..."});
+    // tealiumTools.send({"message":"Running..."});
 
     function addCatToObject (subCatName, tags, catAuditObj) {
         var catTitle = "";
@@ -92,18 +92,19 @@
     var uids_accounted_for = [];
 
     var auditObj = {};
-    auditObj.uncategorized = {};
-    auditObj.categories = {};
+    auditObj.tags = {};
+    auditObj.tags.uncategorized = {};
+    auditObj.tags.categories = {};
 
     for (var i = 0, tags; i < catArr.length; i++) {
-        addCatToObject(catArr[i], catObj[catArr[i]].tagid, auditObj.categories);
+        addCatToObject(catArr[i], catObj[catArr[i]].tagid, auditObj.tags.categories);
     }
 
     var all_tags = getTags();
     var missing_tags = all_tags.filter(tag => uids_accounted_for.indexOf(tag._id) === -1);
 
     // flag these as omitted regardless of the status?
-    addCatToObject(null, missing_tags, auditObj.uncategorized);
+    addCatToObject(null, missing_tags, auditObj.tags.uncategorized);
 
 
    /* for (i = 0, tag; i < missing_tags.length; i++) {
@@ -121,6 +122,7 @@
     auditObj.profile = utui.login.profile;
     auditObj.dirtyProfile = utui.profile.dirty
     auditObj.isLatestVersion = utui.profile.isLatestVersion;
+    auditObj.versionInfo = utui.publish.history;
 
     //console.log(uids_accounted_for);
     //console.log(missing_tags);
