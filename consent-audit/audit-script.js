@@ -1,5 +1,7 @@
 (function runConsentAudit() {
 
+    tealiumTools.send("Running...");
+
     // make sure the utui object is there
     if (typeof utui === "undefined") {
         tealiumTools.send("Error: please make sure you're logged into TiQ (and have the TiQ UI as your active tab) to use this tool.");
