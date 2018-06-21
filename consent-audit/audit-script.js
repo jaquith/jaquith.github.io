@@ -1,13 +1,10 @@
 (function runConsentAudit() {
-
-    // clear out the previous Audit Report or error
-    // tealiumTools.send({"message":"Running..."});
-
     function addCatToObject (subCatName, tags, catAuditObj) {
         var catTitle = "";
         // should certainly do something more elegant with the language handling here - currently only English
         try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catName].name;}
         catch(e){}
+        // subCatName is optional - it's used to create a sub-object if provided
         if (typeof subCatName === "string" && subCatName != "" ) {
             catAuditObj[subCatName] = {};
             catAuditObj[subCatName].title = catTitle;
@@ -92,20 +89,26 @@
     var uids_accounted_for = [];
 
     var auditObj = {};
-    auditObj.tags = {};
-    auditObj.tags.uncategorized = {};
-    auditObj.tags.categories = {};
 
-    for (var i = 0, tags; i < catArr.length; i++) {
-        addCatToObject(catArr[i], catObj[catArr[i]].tagid, auditObj.tags.categories);
+    // add the categorized tags if present
+    if (catArr && catArr.length && catArr.length !== 0) {
+        auditObj.tags = auditObj.tags || {};
+        auditObj.tags.categories = {};
+        for (var i = 0; i < catArr.length; i++) {
+            addCatToObject(catArr[i], catObj[catArr[i]].tagid, auditObj.tags.categories);
+        }
     }
 
+    // add the uncategorized tags if present
     var all_tags = getTags();
     var missing_tags = all_tags.filter(tag => uids_accounted_for.indexOf(tag._id) === -1);
-
-    // flag these as omitted regardless of the status?
-    addCatToObject(null, missing_tags, auditObj.tags.uncategorized);
-
+    if (missing_tags && missing_tags.length && missing_tags.length !== 0) {
+        auditObj.tags = auditObj.tags || {};
+        auditObj.tags.uncategorized = {};
+        // flag these as omitted regardless of the status?
+        addCatToObject(null, missing_tags, auditObj.tags.uncategorized);
+    }
+    
 
    /* for (i = 0, tag; i < missing_tags.length; i++) {
         tag = missing_tags[i];
@@ -116,12 +119,13 @@
         }
     } */
     
-    // add the timestamp and account info, could expand this as well
-    auditObj.time = new Date();
+    // add the timestamp and account info to give the audit output some context
+    var current = new Date();
+    auditObj.time = current.toUTCString();
     auditObj.account = utui.login.account;
     auditObj.profile = utui.login.profile;
-    auditObj.dirtyProfile = utui.profile.dirty
-    auditObj.isLatestVersion = utui.profile.isLatestVersion;
+    auditObj.dirtyProfile = utui.profile.dirty == 1 ? "true" : "false";
+    auditObj.isLatestVersion = utui.profile.isLatestVersion ? "true" : "false";
     auditObj.versionInfo = utui.publish.history;
 
     //console.log(uids_accounted_for);
