@@ -19,15 +19,23 @@
     var catArr = Object.keys(catObj);
     var uids_accounted_for = [];
 
-    function addCatToObject (catName, tags, auditObj, flagOmitted) {
+    function addCatToObject (subCatName, tags, catAuditObj) {
         var catTitle = "";
         // should do something more elegant with the language at some point, currently only works with English
         try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catName].name;}
         catch(e){}
-        if (catName == "uncategorized") catTitle = "These tags will always fire!";
-        auditObj[catName] = {};
-        auditObj[catName].title = catTitle;
-        auditObj[catName].tags = [];
+        if (typeof subCatName === "string" && subCatName != "" ) {
+            catAuditObj[subCatName] = {};
+            catAuditObj[subCatName].title = catTitle;
+            catAuditObj[subCatName].tags = [];
+            targetObj = catAuditObj[subCatName];
+            tagArr = targetObj.tags;
+        } else {
+            catAuditObj.tags = [];
+            targetObj = catAuditObj;
+            tagArr = targetObj.tags;
+        }
+        
 
         for (var j = 0, tag, tagId, newTagArr; j < tags.length; j++) {
             var tagId = tags[j].tag_id;
@@ -39,16 +47,16 @@
             }
             newTagArr = getTags(tagId, isUID);
             // isOn is where the Consent Preferences omission status is stored
-            for (var k = 0; k < newTagArr.length; k++) {
+            for (var k = 0, isOmitted, isInactive, targetArr; k < newTagArr.length; k++) {
                 tag = newTagArr[k];
                 uids_accounted_for.push(tag._id);
-                var isOmitted = tags[j].isOn == false || tagIsOmittedExplicitConsent(tag._id);
-                var isInactive = tag.status !== "active";
-                auditObj[catName].tags.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : isOmitted, "is_inactive" : isInactive, "should_bold" : isOmitted && !isInactive, "should_grey" : isInactive});
+                isOmitted = tags[j].isOn == false || tagIsOmittedExplicitConsent(tag._id);
+                isInactive = tag.status !== "active";
+                tagArr.push({"uid" : tag._id, "title" : tag.title, "name": tag.tag_name, "is_omitted" : isOmitted, "is_inactive" : isInactive, "should_bold" : isOmitted && !isInactive, "should_grey" : isInactive});
             }
         }
 
-        auditObj[catName].tagCount = auditObj[catName].tags.length;
+        targetObj.tagCount = tagArr.length;
     }
 
 
@@ -85,16 +93,17 @@
 
     var auditObj = {};
     auditObj.uncategorized = {};
+    auditObj.categories = {};
 
     for (var i = 0, tags; i < catArr.length; i++) {
-        addCatToObject(catArr[i], catObj[catArr[i]].tagid, auditObj);
+        addCatToObject(catArr[i], catObj[catArr[i]].tagid, auditObj.categories);
     }
 
     var all_tags = getTags();
     var missing_tags = all_tags.filter(tag => uids_accounted_for.indexOf(tag._id) === -1);
 
     // flag these as omitted regardless of the status?
-    addCatToObject("uncategorized", missing_tags, auditObj, true);
+    addCatToObject(null, missing_tags, auditObj.uncategorized);
 
 
    /* for (i = 0, tag; i < missing_tags.length; i++) {
