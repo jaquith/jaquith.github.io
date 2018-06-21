@@ -1,6 +1,6 @@
 (function runConsentAudit() {
 
-    tealiumTools.send("Running...");
+    //tealiumTools.send("Running...");
 
     // make sure the utui object is there
     if (typeof utui === "undefined") {
