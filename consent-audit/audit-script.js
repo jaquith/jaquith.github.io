@@ -1,10 +1,10 @@
 (function runConsentAudit() {
 
-    //tealiumTools.send("Running...");
+    tealiumTools.send({"message":"Running..."});
 
     // make sure the utui object is there
     if (typeof utui === "undefined") {
-        tealiumTools.send("Error: please make sure you're logged into TiQ (and have the TiQ UI as your active tab) to use this tool.");
+        tealiumTools.send({"message":"Error: please make sure you're logged into TiQ (and have the TiQ UI as your active tab) to use this tool."});
         return;
     }
 
@@ -12,7 +12,7 @@
     var isPreferencesActive = (utui.data.privacy_management && utui.data.privacy_management.preferences && utui.data.privacy_management.preferences.isEnabled);
 
     if (!isExplicitActive || !isPreferencesActive) {
-        tealiumTools.send("Error: This tool is only tested for profiles with both Consent Manager components active, get in touch with caleb.jaquith@tealium.com to get your use case added.");
+        tealiumTools.send({"message":"Error: This tool is only tested for profiles with both Consent Manager components active - get in touch with caleb.jaquith@tealium.com to get your use case added."});
         return;
     }
 
