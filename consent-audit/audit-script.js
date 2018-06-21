@@ -136,7 +136,7 @@
     auditObj.profile = utui.login.profile;
     // using strings instead of booleans for easier templating (could easily change)
     auditObj.dirtyProfile = utui.profile.dirty == 1 ? "true" : "false";
-    auditObj.isLatestVersion = utui.profile.isLatestVersion ? "true" : "false";
+    // auditObj.isLatestVersion = utui.profile.isLatestVersion ? "true" : "false";
     auditObj.isProdVersion = false;
     var versionConcat = utui.data.settings.revision + "_" + utui.data.settings.minorrevision;
     var publishedVersions = utui.publish.history;
@@ -145,7 +145,6 @@
     auditObj.isDevVersion = publishedLocations.dev === true && utui.profile.dirty === 0 ? "true" : "false"
     auditObj.isQAVersion = publishedLocations.qa === true && utui.profile.dirty === 0 ? "true" : "false"
     auditObj.isProdVersion = publishedLocations.prod === true && utui.profile.dirty === 0 ? "true" : "false"
-    debugger;
 
     //console.log(uids_accounted_for);
     //console.log(missing_tags);
