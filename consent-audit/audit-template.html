@@ -3,11 +3,11 @@
     <p>{{this.message}}</p>
   {{else}}
     <h2 style='margin-bottom:10px;'>Latest Audit Results</h2>
-    <p>Account: {{this.account}}</p>
-    <p>Profile: {{this.profile}}</p>
-    <p>Audit Time: {{this.time}}</p>
-    <p>Profile has unsaved edits: {{this.dirtyProfile}}</p>
-    <p>Profile is latest version: {{this.isLatestVersion}}</p>
+    <p>Account: <b>{{this.account}}</b></p>
+    <p>Profile: <b>{{{this.profile}}</b></p>
+    <p>Audit Time: <b>{{{this.time}}</b></p>
+    <p>Profile has unsaved edits: <b>{{{this.dirtyProfile}}</b></p>
+    <p>Profile is latest version: <b>{{{this.isLatestVersion}}</b></p>
     {{#if this.tags.uncategorized}}
       <div style='margin-bottom:30px;'>
         <h3>
