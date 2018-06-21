@@ -2,7 +2,7 @@
     function addCatToObject (subCatName, tags, catAuditObj) {
         var catTitle = "";
         // should certainly do something more elegant with the language handling here - currently only English
-        try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[catName].name;}
+        try {catTitle = utui.data.privacy_management.preferences.languages.en.categories[subCatName].name;}
         catch(e){}
         // subCatName is optional - it's used to create a sub-object if provided
         if (typeof subCatName === "string" && subCatName != "" ) {
@@ -142,9 +142,9 @@
     var publishedVersions = utui.publish.history;
     var publishedLocations = getVersionPublishedLocations(versionConcat, publishedVersions);
     // doesn't support custom environments
-    auditObj.isDevVersion = publishedLocations.dev === true && utui.profile.dirty === 0 ? "true" : "false"
-    auditObj.isQAVersion = publishedLocations.qa === true && utui.profile.dirty === 0 ? "true" : "false"
-    auditObj.isProdVersion = publishedLocations.prod === true && utui.profile.dirty === 0 ? "true" : "false"
+    auditObj.isDevVersion = publishedLocations.dev === true && utui.profile.dirty === 0 ? "true" : "false";
+    auditObj.isQAVersion = publishedLocations.qa === true && utui.profile.dirty === 0 ? "true" : "false";
+    auditObj.isProdVersion = publishedLocations.prod === true && utui.profile.dirty === 0 ? "true" : "false";
 
     //console.log(uids_accounted_for);
     //console.log(missing_tags);
